@@ -6,10 +6,20 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.model_selection import train_test_split
 import joblib
 import os
+import numpy as np
+from scipy import stats
+
+# Try to import XGBoost
+try:
+    import xgboost as xgb
+    XGBOOST_AVAILABLE = True
+except ImportError:
+    XGBOOST_AVAILABLE = False
+    print("XGBoost not available. Install with: pip install xgboost")
 
 from preprocess import DataPreprocessor
 
@@ -31,6 +41,10 @@ class ModelTrainer:
             'Random Forest': RandomForestRegressor(n_estimators=100, random_state=42)
         }
         
+        # Add XGBoost if available
+        if XGBOOST_AVAILABLE:
+            models['XGBoost'] = xgb.XGBRegressor(n_estimators=100, random_state=42)
+        
         results = []
         
         for model_name, model in models.items():
@@ -45,19 +59,27 @@ class ModelTrainer:
             # Calculate metrics
             mse = mean_squared_error(y_test, y_pred)
             rmse = np.sqrt(mse)
+            mae = mean_absolute_error(y_test, y_pred)
             r2 = r2_score(y_test, y_pred)
+            
+            # Calculate confidence intervals for predictions
+            residuals = y_test - y_pred
+            std_residuals = np.std(residuals)
+            confidence_interval = 1.96 * std_residuals  # 95% confidence interval
             
             metrics = {
                 'Model': model_name,
                 'MSE': mse,
                 'RMSE': rmse,
-                'R2': r2
+                'MAE': mae,
+                'R2': r2,
+                'Confidence_Interval': confidence_interval
             }
             
             results.append(metrics)
             self.models[model_name] = model
             
-            print(f"{model_name} - R2: {r2:.4f}, RMSE: {rmse:.2f}")
+            print(f"{model_name} - R2: {r2:.4f}, RMSE: {rmse:.2f}, MAE: {mae:.2f}")
             
             # Update best model
             if r2 > self.best_score:
@@ -80,6 +102,14 @@ class ModelTrainer:
             best_model_path = os.path.join(models_dir, 'best_model.pkl')
             joblib.dump(self.best_model, best_model_path)
             print(f"Saved best model to {best_model_path}")
+    
+    def get_prediction_confidence(self, model, X_test, y_test):
+        """Calculate confidence intervals for model predictions."""
+        y_pred = model.predict(X_test)
+        residuals = y_test - y_pred
+        std_residuals = np.std(residuals)
+        confidence_interval = 1.96 * std_residuals  # 95% confidence interval
+        return confidence_interval
 
 
 def main():
