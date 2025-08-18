@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-108ad68db2b849c9838c826e0885823e/artifacts
+creation_timestamp: 1755502674466
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502681271
+model_id: m-108ad68db2b849c9838c826e0885823e
+model_type: null
+name: linear_regression
+source_run_id: null
+status: 2
+status_message: null

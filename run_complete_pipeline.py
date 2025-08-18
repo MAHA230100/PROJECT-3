@@ -75,6 +75,15 @@ def run_data_preprocessing():
         # Prepare data
         print("  Preparing data...")
         X_train, X_test, y_train, y_test, feature_columns = preprocessor.prepare_data(df)
+
+        # Save a cleaned dataset for EDA
+        print("  Saving cleaned dataset for EDA...")
+        try:
+            clean_df = preprocessor.basic_clean(df)
+            os.makedirs('data', exist_ok=True)
+            preprocessor.save_clean_dataset(clean_df, 'data/medical_insurance_clean.csv')
+        except Exception as e:
+            print(f"  Could not save cleaned dataset: {e}")
         
         # Save preprocessor
         print("  Saving preprocessor...")
@@ -210,18 +219,18 @@ def launch_streamlit_app():
 
 def main():
     """Main function to run the complete pipeline."""
-    print("Medical Insurance Cost Calculator")
-    print("Setting up the project...")
+    print("Insurance Cost Calculator")
+    print("Setting up...")
     print("This will:")
-    print("1. Check dependencies")
-    print("2. Prepare the data")
+    print("1. Check packages")
+    print("2. Process data")
     print("3. Train models")
-    print("4. Start the web app")
+    print("4. Start web app")
     
     # Check if we're in the right directory
     if not os.path.exists('data/medical_insurance.csv'):
-        print("Error: medical_insurance.csv not found in data/ directory")
-        print("Please run this script from the project root directory")
+        print("Error: data file not found")
+        print("Run this from the project directory")
         return False
     
     # Step 1: Check dependencies
@@ -250,13 +259,13 @@ if __name__ == "__main__":
     try:
         success = main()
         if success:
-            print("\nSetup completed successfully!")
+            print("\nSetup complete!")
         else:
-            print("\nSetup failed. Please check the errors above.")
+            print("\nSetup failed. Check the errors above.")
             sys.exit(1)
     except KeyboardInterrupt:
-        print("\nSetup interrupted by user")
+        print("\nSetup stopped by user")
         sys.exit(0)
     except Exception as e:
-        print(f"\nUnexpected error: {e}")
+        print(f"\nError: {e}")
         sys.exit(1)

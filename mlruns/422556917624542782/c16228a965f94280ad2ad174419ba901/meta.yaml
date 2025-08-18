@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/c16228a965f94280ad2ad174419ba901/artifacts
+end_time: 1755502699504
+entry_point_name: ''
+experiment_id: '422556917624542782'
+lifecycle_stage: active
+run_id: c16228a965f94280ad2ad174419ba901
+run_name: XGBoost_20250818_130819
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755502699424
+status: 3
+tags: []
+user_id: Iniyavan

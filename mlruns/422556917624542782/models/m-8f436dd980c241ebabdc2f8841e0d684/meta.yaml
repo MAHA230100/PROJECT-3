@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-8f436dd980c241ebabdc2f8841e0d684/artifacts
+creation_timestamp: 1755502685639
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502689467
+model_id: m-8f436dd980c241ebabdc2f8841e0d684
+model_type: null
+name: lasso_regression
+source_run_id: null
+status: 2
+status_message: null

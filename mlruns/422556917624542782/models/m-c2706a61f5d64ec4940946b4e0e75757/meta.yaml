@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-c2706a61f5d64ec4940946b4e0e75757/artifacts
+creation_timestamp: 1755502681394
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502685504
+model_id: m-c2706a61f5d64ec4940946b4e0e75757
+model_type: null
+name: ridge_regression
+source_run_id: null
+status: 2
+status_message: null

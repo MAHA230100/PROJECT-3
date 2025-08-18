@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/e11f7ea14a4e40cb90429aad270ff000/artifacts
+end_time: 1755502695187
+entry_point_name: ''
+experiment_id: '422556917624542782'
+lifecycle_stage: active
+run_id: e11f7ea14a4e40cb90429aad270ff000
+run_name: Gradient Boosting_20250818_130815
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755502695072
+status: 3
+tags: []
+user_id: Iniyavan

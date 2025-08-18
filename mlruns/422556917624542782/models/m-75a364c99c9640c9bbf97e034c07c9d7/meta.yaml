@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-75a364c99c9640c9bbf97e034c07c9d7/artifacts
+creation_timestamp: 1755502699513
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502703323
+model_id: m-75a364c99c9640c9bbf97e034c07c9d7
+model_type: null
+name: xgboost
+source_run_id: null
+status: 2
+status_message: null

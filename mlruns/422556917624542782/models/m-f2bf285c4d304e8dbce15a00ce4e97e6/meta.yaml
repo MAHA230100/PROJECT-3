@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-f2bf285c4d304e8dbce15a00ce4e97e6/artifacts
+creation_timestamp: 1755502695200
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502699200
+model_id: m-f2bf285c4d304e8dbce15a00ce4e97e6
+model_type: null
+name: gradient_boosting
+source_run_id: null
+status: 2
+status_message: null

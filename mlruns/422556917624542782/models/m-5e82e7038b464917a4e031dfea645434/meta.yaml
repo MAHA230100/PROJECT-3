@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/models/m-5e82e7038b464917a4e031dfea645434/artifacts
+creation_timestamp: 1755502690750
+experiment_id: '422556917624542782'
+last_updated_timestamp: 1755502694788
+model_id: m-5e82e7038b464917a4e031dfea645434
+model_type: null
+name: random_forest
+source_run_id: null
+status: 2
+status_message: null

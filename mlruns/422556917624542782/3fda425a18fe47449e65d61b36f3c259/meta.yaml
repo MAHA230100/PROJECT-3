@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/3fda425a18fe47449e65d61b36f3c259/artifacts
+end_time: 1755502690741
+entry_point_name: ''
+experiment_id: '422556917624542782'
+lifecycle_stage: active
+run_id: 3fda425a18fe47449e65d61b36f3c259
+run_name: Random Forest_20250818_130810
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755502690641
+status: 3
+tags: []
+user_id: Iniyavan

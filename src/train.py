@@ -4,8 +4,8 @@ Model training module for medical insurance cost prediction.
 
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.model_selection import train_test_split
 import joblib
@@ -22,6 +22,7 @@ except ImportError:
     print("XGBoost not available. Install with: pip install xgboost")
 
 from preprocess import DataPreprocessor
+from mlflow_utils import log_experiment_results
 
 
 class ModelTrainer:
@@ -38,7 +39,9 @@ class ModelTrainer:
         models = {
             'Linear Regression': LinearRegression(),
             'Ridge Regression': Ridge(alpha=1.0),
-            'Random Forest': RandomForestRegressor(n_estimators=100, random_state=42)
+            'Lasso Regression': Lasso(alpha=0.001, max_iter=10000),
+            'Random Forest': RandomForestRegressor(n_estimators=200, random_state=42),
+            'Gradient Boosting': GradientBoostingRegressor(random_state=42)
         }
         
         # Add XGBoost if available
@@ -69,17 +72,30 @@ class ModelTrainer:
             
             metrics = {
                 'Model': model_name,
-                'MSE': mse,
-                'RMSE': rmse,
-                'MAE': mae,
-                'R2': r2,
-                'Confidence_Interval': confidence_interval
+                'MSE': float(mse),
+                'RMSE': float(rmse),
+                'MAE': float(mae),
+                'R2': float(r2),
+                'Confidence_Interval': float(confidence_interval)
             }
             
             results.append(metrics)
             self.models[model_name] = model
             
             print(f"{model_name} - R2: {r2:.4f}, RMSE: {rmse:.2f}, MAE: {mae:.2f}")
+
+            # Log to MLflow
+            try:
+                params = getattr(model, 'get_params', lambda: {})()
+                # Only keep simple serializable params
+                serializable_params = {k: v for k, v in params.items() if isinstance(v, (int, float, str, bool))}
+                log_experiment_results(model_name, model, {
+                    'r2': float(r2),
+                    'rmse': float(rmse),
+                    'mae': float(mae)
+                }, parameters=serializable_params)
+            except Exception as e:
+                print(f"Could not log {model_name} to MLflow: {e}")
             
             # Update best model
             if r2 > self.best_score:

@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Iniyavan/Documents/github/PROJECT-3/mlruns/422556917624542782/c67a8cff7f474767a672c39395f82237/artifacts
+end_time: 1755502685629
+entry_point_name: ''
+experiment_id: '422556917624542782'
+lifecycle_stage: active
+run_id: c67a8cff7f474767a672c39395f82237
+run_name: Lasso Regression_20250818_130805
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1755502685536
+status: 3
+tags: []
+user_id: Iniyavan

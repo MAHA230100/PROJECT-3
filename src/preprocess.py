@@ -66,6 +66,42 @@ class DataPreprocessor:
         
         return missing_summary
     
+    def drop_duplicates(self, df):
+        """
+        Remove duplicate rows.
+        
+        Args:
+            df (pd.DataFrame): Input dataframe
+        
+        Returns:
+            pd.DataFrame: Dataframe without duplicates
+        """
+        before = len(df)
+        df_no_dupes = df.drop_duplicates().copy()
+        after = len(df_no_dupes)
+        if after != before:
+            print(f"Removed {before - after} duplicate rows")
+        return df_no_dupes
+    
+    def fill_missing_values(self, df):
+        """
+        Fill missing values using simple strategies: median for numeric, mode for categorical.
+        
+        Args:
+            df (pd.DataFrame): Input dataframe
+        
+        Returns:
+            pd.DataFrame: Dataframe with missing values filled
+        """
+        df_filled = df.copy()
+        for column in df_filled.columns:
+            if df_filled[column].isnull().any():
+                if df_filled[column].dtype in ['int64', 'float64']:
+                    df_filled[column] = df_filled[column].fillna(df_filled[column].median())
+                else:
+                    df_filled[column] = df_filled[column].fillna(df_filled[column].mode().iloc[0])
+        return df_filled
+    
     def handle_outliers(self, df, columns, method='iqr'):
         """
         Handle outliers in numerical columns.
@@ -98,6 +134,17 @@ class DataPreprocessor:
                     df_clean[column] = np.where(z_scores > 3, df[column].median(), df[column])
         
         return df_clean
+
+    def basic_clean(self, df):
+        """
+        Perform basic cleaning for EDA: remove duplicates, fill missing, and cap outliers on numeric fields.
+        Keeps original categorical values intact.
+        """
+        df_basic = self.drop_duplicates(df)
+        df_basic = self.fill_missing_values(df_basic)
+        numeric_cols = [col for col in df_basic.columns if df_basic[col].dtype in ['int64', 'float64']]
+        df_basic = self.handle_outliers(df_basic, numeric_cols, method='iqr')
+        return df_basic
     
     def encode_categorical_variables(self, df, categorical_columns):
         """
@@ -189,9 +236,8 @@ class DataPreprocessor:
         # Check for missing values
         self.check_missing_values(df)
         
-        # Handle outliers in numerical columns
-        numerical_cols = ['age', 'bmi', 'children', 'charges']
-        df_clean = self.handle_outliers(df, numerical_cols)
+        # Basic cleaning
+        df_clean = self.basic_clean(df)
         
         # Create additional features
         df_features = self.create_features(df_clean)
@@ -221,6 +267,16 @@ class DataPreprocessor:
         print(f"Test set shape: {X_test.shape}")
         
         return X_train, X_test, y_train, y_test, feature_columns
+
+    def save_clean_dataset(self, df, file_path):
+        """
+        Save a cleaned dataset to CSV for EDA and sharing.
+        """
+        try:
+            df.to_csv(file_path, index=False)
+            print(f"Clean dataset saved to {file_path}")
+        except Exception as e:
+            print(f"Failed to save clean dataset: {e}")
     
     def save_preprocessor(self, file_path):
         """
