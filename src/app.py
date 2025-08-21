@@ -28,8 +28,8 @@ class InsurancePredictor:
     
     def load_model(self):
         """Load the trained model and preprocessor."""
-        model_path = 'models/best_model.pkl'
-        preprocessor_path = 'models/preprocessor.pkl'
+        model_path = r"C:\Users\Iniyavan\Documents\github\PROJECT-3\models\best_model.pkl"
+        preprocessor_path = r"C:\Users\Iniyavan\Documents\github\PROJECT-3\models\preprocessor.pkl"
         
         if os.path.exists(model_path) and os.path.exists(preprocessor_path):
             try:
@@ -139,9 +139,9 @@ def main():
 
 def show_intro_page():
     """Display the introduction page."""
-    st.title("Insurance Cost Calculator")
+    st.title("Medical Insurance Cost Prediction")
     
-    st.write("A simple tool to estimate medical insurance costs.")
+    st.write("A simple tool to estimate medical insurance costs using machine learning")
     
     col1, col2 = st.columns([2, 1])
     
@@ -168,17 +168,11 @@ def show_intro_page():
     
     with col2:
         st.subheader("Data Info")
-        st.metric("Records", "159")
+        st.metric("Records", "2772")
         st.metric("Model", "Linear Regression")
         st.metric("Accuracy", "58%")
         st.metric("Factors", "10")
         
-        st.subheader("Pages")
-        st.write("Use the sidebar to move around:")
-        st.write("• **Intro** - This page")
-        st.write("• **EDA Analysis** - Data and questions")
-        st.write("• **Prediction** - Cost calculator")
-        st.write("• **Conclusion** - Summary")
 
 def show_eda_analysis_page():
     """Display the combined EDA and Questions page."""
@@ -191,9 +185,9 @@ def show_eda_analysis_page():
     # Load sample data for display
     try:
         import pandas as pd
-        data_path = 'data/medical_insurance_clean.csv'
+        data_path = r"C:\Users\Iniyavan\Documents\github\PROJECT-3\data\medical_insurance.csv"
         if not os.path.exists(data_path):
-            data_path = 'data/medical_insurance.csv'
+            data_path = r"C:\Users\Iniyavan\Documents\github\PROJECT-3\data\medical_insurance.csv"
         df = pd.read_csv(data_path)
         
         col1, col2 = st.columns(2)
